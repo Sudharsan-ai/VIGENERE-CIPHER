@@ -38,8 +38,42 @@ STEP-8: Repeat the above steps to generate the entire cipher text.
 
 ## PROGRAM
 ```
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
+void caesarEncrypt(char *text, int key) {
+    for (int i = 0; text[i] != '\0'; i++) {
+        char c = text[i];
+        if (c >= 'A' && c <= 'Z') {
+            text[i] = ((c - 'A' + key) % 26 + 26) % 26 + 'A';
+        }
+        else if (c >= 'a' && c <= 'z') {
+            text[i] = ((c - 'a' + key) % 26 + 26) % 26 + 'a';
+        }
+    }
+}
+
+void caesarDecrypt(char *text, int key) {
+    caesarEncrypt(text, -key);
+}
+
+int main() {
+    char message[100];
+    int key;
+    printf("Enter the message to encrypt: ");
+    fgets(message, sizeof(message), stdin); 
+    message[strcspn(message, "\n")] = '\0';
+    printf("Enter the Caesar Cipher key (an integer): ");
+    scanf("%d", &key); 
+    caesarEncrypt(message, key);
+    printf("Encrypted Message: %s\n", message);
+    caesarDecrypt(message, key);
+    printf("Decrypted Message: %s\n", message);
+    return 0;
+}
 ```
 ## OUTPUT
+<img width="1700" height="829" alt="image" src="https://github.com/user-attachments/assets/5234ed6e-26ef-40cd-a284-b1d16ec8f879" />
 
 ## RESULT
